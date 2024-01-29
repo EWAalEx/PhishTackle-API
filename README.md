@@ -1,0 +1,2 @@
+# PhishTackle-API
+PhishTackle-API is a powerful machine learning-driven API designed to combat phishing attacks by analyzing email content and URLs. Leveraging machine learning algorithms, this API offers proactive defense measures to enhance email security and mitigate human vulnerabilities. Integrate PhishTackle-API into your applications to detect and prevent phishing threats, safeguarding users and organizations from potential data breaches and unauthorized access. Stay ahead of evolving cyber threats with PhishTackle-API, your trusted ally in the fight against phishing.
