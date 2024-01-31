@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use(cache("15 seconds"));
+// app.use(cache("15 seconds"));
 
 //version management
 app.use("/api/live", liveRouter);
