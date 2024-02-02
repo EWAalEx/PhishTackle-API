@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const apicache = require("apicache");
+const cors = require("./cors.js");
 
 
 //innitialising required routers
@@ -16,6 +17,8 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // app.use(cache("15 seconds"));
+
+app.use(cors());
 
 //version management
 app.use("/api/live", liveRouter);

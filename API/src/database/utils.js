@@ -2,7 +2,6 @@
 const fs = require("fs");
 
 const saveToDatabase = (DB) => {
-  console.log(DB);
   try{
     fs.writeFileSync("./API/src/database/db.json", JSON.stringify(DB, null, 4), {
       encoding: "utf-8",
