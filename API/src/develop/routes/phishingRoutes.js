@@ -12,6 +12,8 @@ const cache = apicache.middleware;
 const router = express.Router();
 
 //routing table
+router.get("/status", phishingController.getStatus);
+
 router.get("/", phishingController.getAllData);
 
 router.get("/:dataId", phishingController.getOneData);

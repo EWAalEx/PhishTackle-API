@@ -1,6 +1,15 @@
 //Dependencies
 const phishingService = require("../services/phishingService");
 
+const getStatus = (req, res) => {
+    try {
+        res.send({status: "OK", data: "Phishing API running as normal"});
+    } catch (error) {
+        res.status(error?.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
+};
+
 const getAllData = (req, res) => {
     try {
         const allData = phishingService.getAllData();
@@ -118,7 +127,7 @@ const deleteOneData = (req, res) => {
 
     try {
         phishingService.deleteOneData(dataId);
-        res.status(204).send({ status: "OK" });
+        res.status(200).send({ status: "OK", data: `DataID ${dataId} successfully deleted` });
     } catch (error) {
         res
             .status(error?.status || 500)
@@ -130,6 +139,7 @@ const deleteOneData = (req, res) => {
 
 //export created functions
 module.exports = {
+    getStatus,
     getAllData,
     getOneData,
     createNewData,

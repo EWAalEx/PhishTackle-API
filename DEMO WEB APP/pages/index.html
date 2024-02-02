@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../styles/default.css">
+    <script type="text/javascript" src="../scripts/apiRequests.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="login-container">
+            <h2>Web App Phishing Detection Demo</h2>
+            <div class="row">
+                <h3>API Status:</h3>
+                <h3 id="test"></h3>
+            </div>
+
+            <form action="" method="GET">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <input class="btn" type="submit" value="Login">
+            </form>
+
+            <!--For testing API functionality-->
+            <div class="col center-contents">
+            <button class="btn" id="runScript" onclick="getStatus()">Get Status</button>
+            <button class="btn" id="runScript" onclick="getAllData()">Get All Data</button>
+            <button class="btn" id="runScript" onclick="getSpecificData()">Get Specific Data</button>
+            <button class="btn" id="runScript" onclick="postNewData()">Post New Data</button>
+            <button class="btn" id="runScript" onclick="patchOldData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Patch Old Data</button>
+            <button class="btn" id="runScript" onclick="deleteData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Delete Data</button>
+            </div>
+        </div>
+        
+        <div class="response-box container">
+            <h2>API RESPONSE</h2>
+            <textarea id="response">
+                API Response will go here
+            </textarea>
+        </div>
+    </div>
+
+
+</body>
+</html>
