@@ -2,9 +2,9 @@
   "name": "phishing-detection",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "API/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon API/src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "apicache": "^1.6.3",
+    "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
