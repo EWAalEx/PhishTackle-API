@@ -1,45 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --header-text-color: white;
+    --header-background-color:black;
+    --page-color:#FCFCFC;
+    --page-main-font: 'Roboto', sans-serif;
+  }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: var(--page-main-font);
+}
+
+header {
+    width: 100%;
+    height: 11vh;
+    background-color: var(--header-background-color);
+    position: sticky;
+    top: 0;
+    z-index: 4744699;
+}
+
+.nav-contents {
+    width: calc(100% - 1rem);
+    height: calc(100% - 0.5rem);
+    padding: 0.25rem 0.5rem;
     display: flex;
+}
+
+.nav-contents .links {
+    color: var(--header-text-color);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    flex: 1;
+}
+
+.nav-contents .links li:hover {
+    cursor: pointer;
+}
+
+.nav-contents .links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.nav-contents .links li a {
+    color: var(--header-text-color);
+    text-decoration: none;
+    height: 100%;
+    display: flex;
     align-items: center;
 }
 
-.login-container {
-    width: 62%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.login-container form {
+.logo-container {
+    background: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    gap: 0.5rem;
+    text-decoration: none;
+    padding: 0 0.5rem;
 }
 
-.login-container label,
-.login-container input {
-    margin-bottom: 10px;
+.logo-container img {
+    height: 90%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.login-container input.btn{
-    margin-bottom: 1rem;
+.logo-container h1, .logo-container h2, .logo-container h3, .logo-container h4 {
+    color: rgb(0, 0, 0);
+    margin: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.justify-end {
+    display: flex;
+    justify-content: end!important;
+    justify-self: end!important;
+}
+
+.justify-start {
+    display: flex;
+    justify-content: start!important;
+    justify-self: start!important;
+}
+
+.justify-space-between {
+    display: flex;
+    justify-content: space-between!important;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
 }
 
 .row {
@@ -65,7 +138,9 @@ body {
     color: white;
     border: none;
     padding: 1rem 0.5rem;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn:hover {
@@ -79,19 +154,66 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.response-box {
-    background-color: #fff;
-    width: 27.5%;
+.invisible {
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
-.response-box h2, 
-.response-box h3,
-.response-box h4,
-.response-box h1 {
-    color: red;
+.visible {
+    visibility: visible;
+    width: auto;
+    height: auto;
 }
 
-.response-box textarea {
+.api-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.api-status .btn {
+    padding: 0.5rem;
+}
+
+.api-status *{
+    margin: 0;
+}
+
+.section {
+    margin-bottom: 1rem;
+}
+
+.section:last-of-type {
+    margin-bottom: 0;
+}
+
+.phishing-form-inputs {
+    width: 100%;
+    height: 40vh;
+    gap: 0.25rem;
+}
+
+.phishing-form-inputs textarea {
+    height: 100%;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    resize: none;
+}
+
+.phishing-form-submit .btn {
+    width: 50%;
+    padding: 0.5rem;
+}
+
+.response-box h1, .response-box h2, .response-box h3, .response-box h4 {
+    margin: 0;
+}
+
+.response-box .response {
     width: -webkit-fill-available;
-    height: 86%;
+    height: 15vh;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    resize: none;
 }
