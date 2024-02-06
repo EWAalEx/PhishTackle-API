@@ -1,0 +1,94 @@
+.phishing-form-inputs {
+    width: 100%;
+    height: 40vh;
+    gap: 0.25rem;
+}
+
+.phishing-form-inputs textarea {
+    height: 100%;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    border: solid 1px black;
+    resize: none;
+}
+
+.phishing-form-inputs :where(li, li i) {
+    display: flex;
+    align-items: center;
+}
+
+.form-label {
+    margin: 0;
+}
+
+#links-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    align-content: flex-start;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    border: solid 1px black;
+    margin: 0;
+}
+
+#links-list:hover {
+    cursor: text;
+}
+
+#links-list li {
+    color: #333;
+    margin: 4px 3px;
+    list-style: none;
+    border-radius: 5px;
+    background: #F2F2F2;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #e3e1e1;
+}
+
+#links-list li i {
+    display: flex;
+    height: 1.25rem;
+    aspect-ratio: 1/1;
+    color: #808080;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #dfdfdf;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+#links-list li i:hover {
+    color: black;
+    background: #9a9a9a;
+}
+
+#links-list #url-listener {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.phishing-form-submit .btn {
+    width: 50%;
+    padding: 0.5rem;
+}
+
+.response-box h1,
+.response-box h2,
+.response-box h3,
+.response-box h4 {
+    margin: 0;
+}
+
+.response-box .response {
+    width: -webkit-fill-available;
+    height: 15vh;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    resize: none;
+}
