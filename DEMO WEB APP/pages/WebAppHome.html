@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishTackle API Demo WebApp</title>
+    <link rel="stylesheet" href="../styles/default.css">
+    <link rel="stylesheet" href="../styles/phishingForm.css">
+    <link rel="stylesheet" href="../styles/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/jpg" href="../public/github-logo-circle.jpg">
+</head>
+
+<body>
+    <header>
+
+        <div class="nav-contents center-contents">
+            <ul class="links">
+                <li class="dropdown">
+                    <div class="col center-contents h-100">
+                        <a class="dropbtn">See Demo<i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <button class="btn w-100" id="runScript" onclick="apiRunning();getStatus();">Get Status</button>
+                            <button class="btn w-100" id="runScript" onclick="getAllData()">Get All Data</button>
+                            <button class="btn w-100" id="runScript" onclick="getSpecificData()">Get Specific Data</button>
+                            <button class="btn w-100" id="runScript" onclick="postNewData()">Post New Data</button>
+                            <button class="btn w-100" id="runScript" onclick="patchOldData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Patch Old Data</button>
+                            <button class="btn w-100" id="runScript" onclick="deleteData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Delete Data</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="resetForm()">Clear All Fields</a>
+                </li>
+            </ul>
+
+            <a class="logo-container" href="#" onclick="window.location.reload(true);"
+                title="Page Broken? Click here to reload">
+                <img src="../public/github-logo-circle.jpg">
+                <h3>PhishTackle API</h1>
+            </a>
+
+            <ul class="links">
+                <li class="justify-end">
+                    <a href="https://github.com/EWAalEx/PhishTackle-API" target="_blank">See my GitHub</a>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="container">
+
+        <div class="section">
+            <div class="row api-status">
+                <h3>API Status:</h3>
+                <h3 id="status">Retrieving API Status...</h3>
+                <button class="btn justify-start" id="runScript" onclick="apiRunning();getStatus();">Get Status</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div id="phishing-form">
+                <div class="row justify-space-between section">
+                    <div class="col phishing-form-inputs">
+                        <label class="form-label" for="text-contents">Text content to analyse:</label>
+                        <textarea id="text-contents" name="text-contents"
+                            placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint?"></textarea>
+                    </div>
+                    <div class="col phishing-form-inputs">
+                        <p class="form-label">List of urls: (Press Enter or add a comma after each url)</p>
+                        <ul id="links-list" name="links-list">
+                            <input id="url-listener" type="text" spellcheck="false" placeholder="www.example.com, https://www.google.com">
+                        </ul>    
+                    </div>
+                </div>
+                <div class="col phishing-form-submit center-contents">
+                    <input id="formButton" class="btn" type="submit" value="Analyse" onclick="parseUrls()">
+                </div>
+            </div>
+        </div>
+
+        <div class="response-box section">
+            <h2>API RESPONSE</h2>
+            <textarea id="response" class="response" placeholder="API Response will go here"
+                readonly>API Response will go here</textarea>
+        </div>
+
+    </div>
+</body>
+
+<footer>
+    <script type="text/javascript" src="../scripts/webQOLscripts.js"></script>
+    <script type="text/javascript" src="../scripts/phishingForm.js"></script>
+    <script type="text/javascript" src="../scripts/apiRequests.js"></script>
+</footer>
+
+</html>

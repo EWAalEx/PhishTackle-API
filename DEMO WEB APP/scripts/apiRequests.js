@@ -12,14 +12,19 @@ const exampleData = {
     "tag": "Begnin"
 };
 
-function apiRunning() {
-    getData(`${APIURl}/status`)
-    .then((data) => {
-      document.getElementById("test").innerHTML = data.data;
-    })
-  }
+//retrieve API status on load
+async function apiRunning() {
+    try {
+      document.querySelector("#status").innerHTML = "Retrieving API Status...";
+      const data = await getData(`${APIURl}/status`);
+      document.querySelector("#status").innerHTML = data.data;
+    } catch (error){
+      document.querySelector("#status").innerHTML = "API Unavaliable";
+    }
+    
+}
 
-  apiRunning();
+apiRunning();
 
 //GET
 async function getData(url) {

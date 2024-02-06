@@ -1,45 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --header-text-color: white;
+    --header-background-color:black;
+    --page-color:#FCFCFC;
+    --page-main-font: 'Roboto', sans-serif;
+  }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: var(--page-main-font);
+}
+
+.justify-end {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end!important;
+    justify-self: end!important;
 }
 
-.login-container {
-    width: 62%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.login-container form {
+.justify-start {
     display: flex;
-    flex-direction: column;
+    justify-content: start!important;
+    justify-self: start!important;
 }
 
-.login-container label,
-.login-container input {
-    margin-bottom: 10px;
+.justify-space-between {
+    display: flex;
+    justify-content: space-between!important;
 }
 
-.login-container input.btn{
-    margin-bottom: 1rem;
+.w-100 {
+    width: 100%;
 }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.h-100 {
+    height: 100%;
 }
 
 .row {
@@ -65,7 +62,9 @@ body {
     color: white;
     border: none;
     padding: 1rem 0.5rem;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn:hover {
@@ -79,19 +78,36 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.response-box {
-    background-color: #fff;
-    width: 27.5%;
+.invisible {
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
-.response-box h2, 
-.response-box h3,
-.response-box h4,
-.response-box h1 {
-    color: red;
+.visible {
+    visibility: visible;
+    width: auto;
+    height: auto;
 }
 
-.response-box textarea {
-    width: -webkit-fill-available;
-    height: 86%;
+.api-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.api-status .btn {
+    padding: 0.5rem;
+}
+
+.api-status *{
+    margin: 0;
+}
+
+.section {
+    margin-bottom: 1rem;
+}
+
+.section:last-of-type {
+    margin-bottom: 0;
 }
