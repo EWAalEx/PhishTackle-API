@@ -1,3 +1,4 @@
+const linksContainer = document.querySelector("#links-container");
 const linksList = document.querySelector("#links-list");
 const urlListener = document.querySelector("#url-listener");
 const phishingTextContainer = document.querySelector("#text-contents");
@@ -58,5 +59,8 @@ function parseUrls() {
 urlListener.addEventListener("keyup", addTag);
 
 linksList.addEventListener("click", function () {
+    urlListener.focus();
+});
+linksContainer.addEventListener("click", function () {
     urlListener.focus();
 });
