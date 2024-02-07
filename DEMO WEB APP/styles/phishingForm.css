@@ -21,7 +21,7 @@
     margin: 0;
 }
 
-#links-list {
+#links-container {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -31,6 +31,17 @@
     padding: 0.5rem;
     border: solid 1px black;
     margin: 0;
+    overflow: auto;
+}
+
+#links-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    align-content: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #links-list:hover {
