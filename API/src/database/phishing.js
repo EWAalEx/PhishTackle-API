@@ -28,16 +28,6 @@ const getOneData = (dataId) => {
 };
 
 const createNewData = (newData) => {
-  //ensures data is not already in database
-  const AlreadyExists =
-    DB.data.findIndex((data) => data.name === newData.name) > -1;
-  if (AlreadyExists) {
-    throw {
-      status: 400,
-      message: `Data with the name '${newData.name}' already exists`,
-    };
-  }
-
   try {
     DB.data.push(newData);
 
@@ -51,14 +41,6 @@ const createNewData = (newData) => {
 
 const updateOneData = (dataId, changes) => {
   try {
-    const isAlreadyAdded =
-      DB.data.findIndex((data) => data.name === changes.name) > -1;
-    if (isAlreadyAdded) {
-      throw {
-        status: 400,
-        message: `Data with the name '${changes.name}' already exists`,
-      };
-    }
     const indexForUpdate = DB.data.findIndex(
       (data) => data.id === dataId
     );
@@ -99,6 +81,31 @@ const deleteOneData = (dataId) => {
   }
 };
 
+const analyseData = (newData) => {
+  try {
+    //send data to ML algorithms for analysis
+    let [analysedData, certainty] = (function(newData) {
+      //right now replicates a value between 1 and 2
+      //plan to have both ML algorithms produce a value
+      //create a mean for the resultant certainty
+      let certainty = Math.random();
+
+      //fake logic that states phishing if certainty is above 0.4/1
+      if (certainty > 0.4) {
+        newData.tag = "Phishing";
+      } else {
+        newData.tag = "Begnin";
+      }
+
+      return [newData, certainty];
+    })(newData);
+
+    return [analysedData, certainty];
+  } catch (error) {
+    throw { status: 500, message: error?.message || error };
+  }
+};
+
 //export created fucntions
 module.exports = {
   getAllData,
@@ -106,4 +113,5 @@ module.exports = {
   getOneData,
   updateOneData,
   deleteOneData,
+  analyseData,
 };

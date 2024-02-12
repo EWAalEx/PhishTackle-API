@@ -3,7 +3,6 @@
         {
             "id": "61dbae02-c147-4e28-863c-db7bd402b2d6",
             "name": "Test Data",
-            "info": "For Testing API request functionality",
             "urls": [
                 "example@email.com",
                 "https://www.google.com",
@@ -29,9 +28,8 @@
             "updatedAt": "1/29/2024, 7:41:54 PM"
         },
         {
-            "id": "bbb68e11-13bd-420e-b6e4-1672e8f95a97",
+            "id": "ebf177b3-733a-40fb-a695-1750fd239c79",
             "name": "Test Data 3",
-            "info": "For Testing API request functionality",
             "urls": [
                 "example@email.com",
                 "https://www.google.com",
@@ -39,8 +37,8 @@
             ],
             "content": "Lorem ipsum sit dolors amet",
             "tag": "Begnin",
-            "createdAt": "1/29/2024, 7:41:54 PM",
-            "updatedAt": "2/2/2024, 2:46:00 PM"
+            "createdAt": "2/12/2024, 1:16:25 PM",
+            "updatedAt": "2/12/2024, 1:16:25 PM"
         }
     ]
 }

@@ -5,6 +5,14 @@ const phishingTextContainer = document.querySelector("#text-contents");
 
 urls = [];
 
+jsonObject = {};
+
+function resetForm() {
+    phishingTextContainer.value = "";
+    urls.length = 0;
+    linksList.querySelectorAll("li").forEach(li => li.remove());
+}
+
 function createTag() {
     linksList.querySelectorAll("li").forEach(li => li.remove());
     urls.slice().reverse().forEach(tag => {
@@ -48,13 +56,36 @@ function parseUrls() {
                 createTag();
             }
         }
-        
-        console.log(urls);
-
     }
 }
 
-//todo create JSON object from both fields
+function analyseForm() {
+
+    if (urlListener.value != "") {
+        if (confirm("Would you like to add your in-progress url to the list of analysable urls?")) {
+            urlListener.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter" }));
+        }
+    }
+
+    if (phishingTextContainer.value != "") {
+        parseUrls();
+    }
+
+    if (phishingTextContainer.value != "" && urls != []) {
+        
+        jsonObject = {
+            "name": "Demo WebApp Test Data",
+            "urls": urls,
+            "content": phishingTextContainer.value,
+            "tag": "To Test"
+        };
+
+        analyseData(jsonObject);
+    } else {
+        createMinimalNotification("Analysis Error", "No data to check was provided.\nNo API call made!", 3500, "error");
+    }
+}
+
 
 urlListener.addEventListener("keyup", addTag);
 

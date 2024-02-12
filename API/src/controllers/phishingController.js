@@ -50,7 +50,6 @@ const createNewData = (req, res) => {
     //validate data
     if (
         !body.name ||
-        !body.info ||
         !body.urls ||
         !body.content ||
         !body.tag
@@ -61,7 +60,7 @@ const createNewData = (req, res) => {
                 status: "FAILED",
                 data: {
                     error:
-                        "One of the following keys is missing or is empty in request body: 'name', 'info', 'urls', 'content', 'tag'",
+                        "One of the following keys is missing or is empty in request body: 'name', 'urls', 'content', 'tag'",
                 },
             });
         return;
@@ -70,7 +69,6 @@ const createNewData = (req, res) => {
     //create data object from JSON body
     const newData = {
         name: body.name,
-        info: body.info,
         urls: body.urls,
         content: body.content,
         tag: body.tag,
@@ -133,7 +131,42 @@ const deleteOneData = (req, res) => {
             .status(error?.status || 500)
             .send({ status: "FAILED", data: { error: error?.message || error } });
     }
+};
 
+const analyseData = (req, res) => {
+    const { body } = req;
+
+    if((!body.content && !body.urls) || (body.content.trim() == "" && body.urls == "")) {
+        return res
+            .status(400)
+            .send({ status: "FAILED", data: { error: "Empty Data Sent" } });
+    }
+
+    //validate data
+    if (!body.name) {
+        body.name = "";
+    }
+
+    if (!body.tag) {
+        body.tag = "Test"
+    }
+    //create data object from JSON body
+    const newData = {
+        name: body.name,
+        urls: body.urls,
+        content: body.content,
+        tag: body.tag,
+    };
+
+    //send data to service layer to process
+    try {
+        const analysedData = phishingService.analyseData(newData);
+        res.status(201).send({ status: "OK", data: analysedData });
+    } catch (error) {
+        res
+            .status(error?.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
 
 };
 
@@ -145,4 +178,5 @@ module.exports = {
     createNewData,
     updateOneData,
     deleteOneData,
+    analyseData,
 };

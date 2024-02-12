@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+
 //version management
 app.use("/api/live", liveRouter);
 
