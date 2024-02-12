@@ -1,7 +1,3 @@
-function resetForm() {
-    document.querySelector("#phishing-form").reset();
-}
-
 function regexCheck(pattern, text) {
     try {
         const array = [...text.matchAll(pattern)];
@@ -9,4 +5,15 @@ function regexCheck(pattern, text) {
     } catch (error) {
         return [`check failed error: ${error}`];
     }
+}
+
+function createMinimalNotification(title, message, timeout, theme){
+    window.createNotification({
+        showDuration: timeout,
+        theme : theme,
+        positionClass: "nfc-bottom-right"
+    }) ({
+        title: title,
+        message: message
+    });
 }

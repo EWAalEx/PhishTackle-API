@@ -1,27 +1,25 @@
 const APIURl = "http://localhost:3000/api/develop/phishing";
 const exampleID = "61dbae02-c147-4e28-863c-db7bd402b2d6";
 const exampleData = {
-    "name": "Test Data 3",
-    "info": "For Testing API request functionality",
-    "urls": [
-        "example@email.com",
-        "https://www.google.com",
-        "https://random.io"
-    ],
-    "content": "Lorem ipsum sit dolors amet",
-    "tag": "Begnin"
+  "name": "Test Data 3",
+  "urls": [
+    "example@email.com",
+    "https://www.google.com",
+    "https://random.io"
+  ],
+  "content": "Lorem ipsum sit dolors amet",
+  "tag": "Begnin"
 };
 
 //retrieve API status on load
 async function apiRunning() {
-    try {
-      document.querySelector("#status").innerHTML = "Retrieving API Status...";
-      const data = await getData(`${APIURl}/status`);
-      document.querySelector("#status").innerHTML = data.data;
-    } catch (error){
-      document.querySelector("#status").innerHTML = "API Unavaliable";
-    }
-    
+  try {
+    document.querySelector("#status").innerHTML = "Retrieving API Status...";
+    const data = await getData(`${APIURl}/status`);
+    document.querySelector("#status").innerHTML = data.data;
+  } catch (error) {
+    document.querySelector("#status").innerHTML = "API Unavaliable";
+  }
 }
 
 apiRunning();
@@ -38,26 +36,23 @@ async function getData(url) {
 
 function getStatus() {
   getData(`${APIURl}/status`)
-  .then((data) => {
-    document.getElementById("response").innerHTML = JSON.stringify(data)
-    console.log(data);
-  });
+    .then((data) => {
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
 
 function getAllData() {
-    getData(APIURl)
+  getData(APIURl)
     .then((data) => {
-        document.getElementById("response").innerHTML = JSON.stringify(data)
-        console.log(data);
-      });
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
 
 function getSpecificData(id = exampleID) {
-    getData(`${APIURl}/${id}`)
+  getData(`${APIURl}/${id}`)
     .then((data) => {
-        document.getElementById("response").innerHTML = JSON.stringify(data)
-        console.log(data);
-      });
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
 
 //POST
@@ -74,14 +69,20 @@ async function postData(url = "", data = {}) {
 
 function postNewData(data = exampleData) {
   postData(`${APIURl}`, data)
-  .then((data) => {
-    document.getElementById("response").innerHTML = JSON.stringify(data)
-    console.log(data);
-  });
+    .then((data) => {
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
+}
+
+function analyseData(data = exampleData) {
+  postData(`${APIURl}/analyse`, data)
+    .then((data) => {
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
 
 //PATCH
-async function postData(url = "", data = {}) {
+async function patchData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -93,15 +94,14 @@ async function postData(url = "", data = {}) {
 }
 
 function patchOldData(id = exampleID, data = exampleData) {
-  postData(`${APIURl}/${id}`, data)
-  .then((data) => {
-    document.getElementById("response").innerHTML = JSON.stringify(data)
-    console.log(data);
-  });
+  patchData(`${APIURl}/${id}`, data)
+    .then((data) => {
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
 
 //DELETE
-async function postData(url = "", data = {}) {
+async function deleteData(url = "", data = {}) {
   const response = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -112,10 +112,9 @@ async function postData(url = "", data = {}) {
   return response.json();
 }
 
-function deleteData(id = exampleID) {
-  postData(`${APIURl}/${id}`, {})
-  .then((data) => {
-    document.getElementById("response").innerHTML = JSON.stringify(data)
-    console.log(data);
-  });
+function deleteSpecificData(id = exampleID) {
+  deleteData(`${APIURl}/${id}`, {})
+    .then((data) => {
+      document.getElementById("response").innerHTML = JSON.stringify(data);
+    });
 }
