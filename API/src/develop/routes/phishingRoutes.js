@@ -24,5 +24,7 @@ router.patch("/:dataId", phishingController.updateOneData);
 
 router.delete("/:dataId", phishingController.deleteOneData);
 
+router.post("/analyse", phishingController.analyseData);
+
 //router finalisation
 module.exports = router;
