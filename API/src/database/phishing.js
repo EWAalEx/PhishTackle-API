@@ -2,6 +2,8 @@
 const DB = require("./db.json");
 const { saveToDatabase } = require("./utils");
 
+const ort = require("onnxruntime-node");
+
 const getAllData = () => {
   try {
     return DB.data;
@@ -81,29 +83,91 @@ const deleteOneData = (dataId) => {
   }
 };
 
-const analyseData = (newData) => {
-  try {
-    //send data to ML algorithms for analysis
-    let [analysedData, certainty] = (function(newData) {
-      //right now replicates a value between 1 and 2
-      //plan to have both ML algorithms produce a value
-      //create a mean for the resultant certainty
-      let certainty = Math.random();
+async function loadModel(url = ""){
+  const model = await ort.InferenceSession.create(url);
+  console.log("session created");
+  return model;
+};
 
-      //fake logic that states phishing if certainty is above 0.4/1
-      if (certainty > 0.4) {
-        newData.tag = "Phishing";
-      } else {
-        newData.tag = "Begnin";
+async function analyseTextModel(text_model, newData){
+  let error = "";
+
+  if (text_model){
+    const input_text = [newData.content];
+    const text_data = new ort.Tensor("string", input_text);
+    const feeds = {"text_input": text_data};
+    
+    //when model is loaded run provided data through prediction
+
+    try {
+      let results = await text_model.run(feeds);
+        
+      text_prediction = results.label.cpuData[0];
+      text_certainty = results.probabilities.cpuData;
+
+      if (text_prediction === "Phishing Email"){
+        text_certainty = text_certainty[0];
+      }else {
+        text_certainty = text_certainty[1];
       }
 
-      return [newData, certainty];
-    })(newData);
-
-    return [analysedData, certainty];
-  } catch (error) {
-    throw { status: 500, message: error?.message || error };
+      console.log("Prediction:", text_prediction);
+      console.log("Probability:", text_certainty);
+      
+    } catch (error){
+      //change for a throw statement explaining the model error
+      error = `failed to inference ONNX model: ${error}.`;
+      console.log(`failed to inference ONNX model: ${error}.`);
+      text_prediction = "Text Model Failure";
+      return [text_prediction, text_certainty, error];
+    };
+  }else{
+    error = "Text Model couldnt load!";
+    console.log("Text Model couldnt load!");
+    text_prediction = "Text Model Failure";
+    return [text_prediction, text_certainty, error];
   }
+
+  return [text_prediction, text_certainty, error];
+}
+
+async function sendForAnalysis(newData){
+  const url_text = "C:/Users/alexe/Downloads/Phishing_Text/sklearn_text_model.onnx";
+  const text_model = await loadModel(url_text);
+  //url_model = loadModel("file://C:/Users/alexe/Downloads/Phishing_Text/model.onnx");
+
+  const [text_prediction, text_certainty, text_error] = await analyseTextModel(text_model, newData);
+
+  let analysis_certainty = 0.0;
+
+  console.log("text_certainty", text_certainty);
+  
+  analysis_certainty = text_certainty;
+
+  console.log("text_prediction", text_prediction);
+
+  newData.tag = text_prediction;
+
+  return [newData, analysis_certainty, text_error];
+}
+
+const analyseData = async (newData) => {
+  try{
+
+    const [analysedData, certainty, text_error] = await sendForAnalysis(newData);
+
+    //send data to ML algorithms for analysis
+
+    if (newData.tag == "Text Model Failure"){
+      throw { status: 500, message: text_error };
+    }
+
+    console.log("returning:\nanalysedData:", analysedData, "\nCertainty:", certainty);
+    return [analysedData, certainty];
+
+  }catch (error){
+    console.log("error",error);
+  };
 };
 
 //export created fucntions

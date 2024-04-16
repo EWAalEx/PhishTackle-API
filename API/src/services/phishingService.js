@@ -67,7 +67,7 @@ const deleteOneData = (dataId) => {
     }
 };
 
-const analyseData = (newData) => {
+const analyseData = async (newData) => {
     //create data object
     id = uuid()
     while ( DB.data.findIndex((data) => data.id === id) > -1) {
@@ -81,7 +81,7 @@ const analyseData = (newData) => {
 
     //send created object to database controller
     try {
-        const [analysedData, certainty] = Phishing.analyseData(dataToInsert);
+        const [analysedData, certainty] = await Phishing.analyseData(dataToInsert);
 
         const resultantData = {
             ...analysedData,

@@ -133,7 +133,7 @@ const deleteOneData = (req, res) => {
     }
 };
 
-const analyseData = (req, res) => {
+const analyseData = async (req, res) => {
     const { body } = req;
 
     if((!body.content && !body.urls) || (body.content.trim() == "" && body.urls == "")) {
@@ -160,7 +160,7 @@ const analyseData = (req, res) => {
 
     //send data to service layer to process
     try {
-        const analysedData = phishingService.analyseData(newData);
+        const analysedData = await phishingService.analyseData(newData);
         res.status(201).send({ status: "OK", data: analysedData });
     } catch (error) {
         res
