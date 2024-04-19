@@ -1,33 +1,27 @@
 //Configure express
 const express = require('express');
 const bodyParser = require("body-parser");
-const apicache = require("apicache");
-const cors = require("./cors.js");
+const cors = require("./middleware/cors.js");
+const {rateLimiterUsingThirdParty} = require("./middleware/ratelimiter.js");
 
 
 //innitialising required routers
-const liveRouter = require("./live/routes");
-const developRouter = require("./develop/routes");
 const developPhishingRouter = require("./develop/routes/phishingRoutes");
+const PhishingRouter = require("./live/routes/phishingRoutes")
 
 const app = express();
-const cache = apicache.middleware;
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-// app.use(cache("15 seconds"));
-
 app.use(cors());
 
-
 //version management
-app.use("/api/live", liveRouter);
-
-app.use("/api/develop", developRouter);
+app.use("/api/live/phishing", PhishingRouter);
 
 app.use("/api/develop/phishing", developPhishingRouter);
 
+app.use(rateLimiterUsingThirdParty);
 
 app.listen(PORT, () => {
     console.log('Api is listening on', PORT);

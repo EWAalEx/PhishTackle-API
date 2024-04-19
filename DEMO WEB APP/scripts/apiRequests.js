@@ -1,4 +1,4 @@
-const APIURl = "http://localhost:3000/api/develop/phishing";
+const APIURl = "http://localhost:3000/api/live/phishing";
 const exampleID = "61dbae02-c147-4e28-863c-db7bd402b2d6";
 const exampleData = {
   "name": "Test Data 3",
@@ -17,6 +17,7 @@ async function apiRunning() {
     document.querySelector("#status").innerHTML = "Retrieving API Status...";
     const data = await getData(`${APIURl}/status`);
     document.querySelector("#status").innerHTML = data.data;
+    document.querySelector("#response").innerHTML = JSON.stringify(data);
   } catch (error) {
     document.querySelector("#status").innerHTML = "API Unavaliable";
   }
@@ -41,20 +42,6 @@ function getStatus() {
     });
 }
 
-function getAllData() {
-  getData(APIURl)
-    .then((data) => {
-      document.getElementById("response").innerHTML = JSON.stringify(data);
-    });
-}
-
-function getSpecificData(id = exampleID) {
-  getData(`${APIURl}/${id}`)
-    .then((data) => {
-      document.getElementById("response").innerHTML = JSON.stringify(data);
-    });
-}
-
 //POST
 async function postData(url = "", data = {}) {
   const response = await fetch(url, {
@@ -67,15 +54,8 @@ async function postData(url = "", data = {}) {
   return response.json();
 }
 
-function postNewData(data = exampleData) {
-  postData(`${APIURl}`, data)
-    .then((data) => {
-      document.getElementById("response").innerHTML = JSON.stringify(data);
-    });
-}
-
 function analyseData(data = exampleData) {
-  postData(`${APIURl}/analyse`, data)
+  postData(`${APIURl}/analyse${data.name}`, data)
     .then((data) => {
       document.getElementById("response").innerHTML = JSON.stringify(data);
     });
@@ -93,13 +73,6 @@ async function patchData(url = "", data = {}) {
   return response.json();
 }
 
-function patchOldData(id = exampleID, data = exampleData) {
-  patchData(`${APIURl}/${id}`, data)
-    .then((data) => {
-      document.getElementById("response").innerHTML = JSON.stringify(data);
-    });
-}
-
 //DELETE
 async function deleteData(url = "", data = {}) {
   const response = await fetch(url, {
@@ -110,11 +83,4 @@ async function deleteData(url = "", data = {}) {
     body: JSON.stringify(data),
   });
   return response.json();
-}
-
-function deleteSpecificData(id = exampleID) {
-  deleteData(`${APIURl}/${id}`, {})
-    .then((data) => {
-      document.getElementById("response").innerHTML = JSON.stringify(data);
-    });
 }
