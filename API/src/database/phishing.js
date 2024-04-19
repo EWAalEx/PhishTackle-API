@@ -1,87 +1,6 @@
 //Dependencies
-const DB = require("./db.json");
-const { saveToDatabase } = require("./utils");
-
+const { text_model_url, url_model_url } = require("./utils");
 const ort = require("onnxruntime-node");
-
-const getAllData = () => {
-  try {
-    return DB.data;
-  } catch (error) {
-    throw { status: 500, message: error };
-  }
-
-};
-
-const getOneData = (dataId) => {
-  try{
-    const data = DB.data.find((data) => data.id === dataId);
-    if (!data) {
-      throw {
-        status: 400,
-        message: `data with the id '${dataId}' does not exist`,
-      };
-    }
-    return data;
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-  
-};
-
-const createNewData = (newData) => {
-  try {
-    DB.data.push(newData);
-
-    //update database with new data
-    saveToDatabase(DB);
-    return newData;
-  } catch (error) {
-    throw { status: 500, message: error?.message || error };
-  }
-};
-
-const updateOneData = (dataId, changes) => {
-  try {
-    const indexForUpdate = DB.data.findIndex(
-      (data) => data.id === dataId
-    );
-    if (indexForUpdate === -1) {
-      throw {
-        status: 400,
-        message: `Can't find data with the id '${dataId}'`,
-      };
-    }
-    const updatedData = {
-      ...DB.data[indexForUpdate],
-      ...changes,
-      updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    };
-    DB.data[indexForUpdate] = updatedData;
-    saveToDatabase(DB);
-    return updatedData;
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }  
-};
-
-const deleteOneData = (dataId) => {
-  try{
-    const indexToDelete = DB.data.findIndex(
-      (data) => data.id === dataId
-    );
-    if (indexToDelete === -1) {
-      throw {
-        status: 400,
-        message: `Can't find data with the id '${dataId}'`,
-      };
-    }
-    DB.data.splice(indexToDelete, 1);
-    saveToDatabase(DB);
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-};
 
 async function loadModel(url = ""){
   const model = await ort.InferenceSession.create(url);
@@ -94,7 +13,12 @@ async function analyseTextModel(text_model, newData){
   //run models against provided inputs
   if (text_model){
     //when model is loaded run provided data through prediction
-    const input_text = [newData.content];
+    const input_text = newData.content;
+
+    if(typeof(input_text) == "string"){
+      input_text = [newData.content];
+    }
+
     let predictions = [];
     let certaintys = [];
 
@@ -140,6 +64,11 @@ async function analyseUrlModel(url_model, newData){
   //run models against provided inputs
   if (url_model){
     const input_urls = newData.urls;
+
+    if(typeof(input_urls) == "string"){
+      input_urls = [newData.urls];
+    }
+
     let predictions = [];
     let certaintys = [];
     
@@ -184,17 +113,15 @@ async function analyseUrlModel(url_model, newData){
 async function sendForAnalysis(newData){
   //only load models that are needed
   //loading text model
-  const url_text = "C:/Users/alexe/Downloads/Phishing_Text/sklearn_text_model.onnx";
   let text_model = null;
-  if (url_text != "" && (newData.content != "") && (newData.content.trim() != "")){
-    text_model = await loadModel(url_text);
+  if (text_model_url != "" && newData.content != "" && newData.content != [""]){
+    text_model = await loadModel(text_model_url);
   }
 
   //loading url model
-  const url_urls = "C:/Users/alexe/Downloads/Phishing_URLS_dataset/sklearn_url_model.onnx";
   let url_model = null;
-  if (url_urls != "" && newData.urls != "" && newData.urls != []){
-    url_model = await loadModel(url_urls);
+  if (url_model_url != "" && newData.urls != "" && newData.urls != []){
+    url_model = await loadModel(url_model_url);
   }
 
   //if models arent loaded dont try to use them
@@ -336,10 +263,5 @@ const analyseData = async (newData) => {
 
 //export created fucntions
 module.exports = {
-  getAllData,
-  createNewData,
-  getOneData,
-  updateOneData,
-  deleteOneData,
-  analyseData,
+  analyseData
 };

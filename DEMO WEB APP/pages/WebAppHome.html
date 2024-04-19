@@ -23,12 +23,8 @@
                     <div class="col center-contents h-100">
                         <a class="dropbtn">See Demo<i class="fa fa-caret-down"></i></a>
                         <div class="dropdown-content">
-                            <button class="btn w-100" id="runScript" onclick="apiRunning();getStatus();">Get Status</button>
-                            <button class="btn w-100" id="runScript" onclick="getAllData()">Get All Data</button>
-                            <button class="btn w-100" id="runScript" onclick="getSpecificData()">Get Specific Data</button>
-                            <button class="btn w-100" id="runScript" onclick="postNewData()">Post New Data</button>
-                            <button class="btn w-100" id="runScript" onclick="patchOldData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Patch Old Data</button>
-                            <button class="btn w-100" id="runScript" onclick="deleteData('bbb68e11-13bd-420e-b6e4-1672e8f95a97')">Delete Data</button>
+                            <button class="btn w-100" id="runScript" onclick="getStatus();">Get Status</button>
+                            <button class="btn w-100" id="runScript" onclick="resetForm();testForm();">Fill With Test Data</button>
                         </div>
                     </div>
                 </li>
@@ -58,7 +54,7 @@
             <div class="row api-status">
                 <h3>API Status:</h3>
                 <h3 id="status">Retrieving API Status...</h3>
-                <button class="btn justify-start" id="runScript" onclick="apiRunning();getStatus();">Get Status</button>
+                <button class="btn justify-start" id="runScript" onclick="apiRunning();">Get Status</button>
             </div>
         </div>
 

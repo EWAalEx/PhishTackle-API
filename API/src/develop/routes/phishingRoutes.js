@@ -1,30 +1,24 @@
 //Dependencies
 const express = require("express");
 const apicache = require("apicache");
+const cache = apicache.middleware;
 
 const phishingController = require("../../controllers/phishingController");
-
-//innit caching
-const cache = apicache.middleware;
-//add cache(TIME) as parameter to request to cache result
 
 //router innitialisation
 const router = express.Router();
 
+
 //routing table
+router.route('/').get((req, res) => {
+    res.send(`<h2>Hello from ${req.baseUrl}</h2>`);
+  });
+
 router.get("/status", phishingController.getStatus);
 
-router.get("/", phishingController.getAllData);
-
-router.get("/:dataId", phishingController.getOneData);
-
-router.post("/", phishingController.createNewData);
-
-router.patch("/:dataId", phishingController.updateOneData);
-
-router.delete("/:dataId", phishingController.deleteOneData);
-
 router.post("/analyse", phishingController.analyseData);
+//using name allows caching
+router.post("/analyse:name", cache("5 minutes"), phishingController.analyseData);
 
 //router finalisation
 module.exports = router;

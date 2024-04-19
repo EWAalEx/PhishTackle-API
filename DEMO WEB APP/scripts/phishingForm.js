@@ -7,6 +7,11 @@ urls = [];
 
 jsonObject = {};
 
+function testForm() {
+    phishingTextContainer.value = "Dear customer,\nYou have WON $10,0,000!!! Congratulations!!!\nClick here for your prize --> https://malicious.site.com/?fake_paypal=true";
+    parseUrls();
+}
+
 function resetForm() {
     phishingTextContainer.value = "";
     urls.length = 0;
@@ -71,12 +76,31 @@ function analyseForm() {
         parseUrls();
     }
 
-    if (phishingTextContainer.value != "" && urls != []) {
+    if (phishingTextContainer.value != "" || urls != "") {
+        //creates unique name for inputs to aid with caching        
+
+        const createName =  `${phishingTextContainer.value}${urls.toString()}`;
+
+        //removing https:// and variation from name to construct safe name
+        let safeName = createName.replace(/https:\/\//g,"");
+
+        if(safeName.includes("http://")){
+            safeName = safeName.replace(/http:\/\//g,"");
+        }
         
+        //for some reason semi colon also breaks it
+        if(safeName.includes("https;//")){
+            safeName = safeName.replace(/https;\/\//g,"");
+        }
+
+        if(safeName.includes("http;//")){
+            safeName = safeName.replace(/http;\/\//g,"");
+        }
+
         jsonObject = {
-            "name": "Demo WebApp Test Data",
+            "name": safeName,
             "urls": urls,
-            "content": phishingTextContainer.value,
+            "content": [phishingTextContainer.value],
             "tag": "To Test"
         };
 
