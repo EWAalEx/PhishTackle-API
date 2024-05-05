@@ -79,7 +79,7 @@ function analyseForm() {
     if (phishingTextContainer.value != "" || urls != "") {
         //creates unique name for inputs to aid with caching        
 
-        const createName =  `${phishingTextContainer.value}${urls.toString()}`;
+        const createName =  `${phishingTextContainer.value.toLowerCase()}${urls.toString().toLowerCase()}`;
 
         //removing https:// and variation from name to construct safe name
         let safeName = createName.replace(/https:\/\//g,"");
