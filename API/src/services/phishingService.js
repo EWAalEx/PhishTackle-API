@@ -1,14 +1,10 @@
 //Dependencies
-const DB = require("../database/db.json");
-const Phishing = require("../database/phishing");
+const Phishing = require("../phishing/phishing");
 const { v4: uuid } = require("uuid");
 
 const analyseData = async (newData) => {
     //create data object
-    id = uuid()
-    while ( DB.data.findIndex((data) => data.id === id) > -1) {
-        id = uuid();
-    }
+    id = uuid();
 
     newData.name = id;
 

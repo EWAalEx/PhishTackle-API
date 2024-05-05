@@ -23,6 +23,6 @@ app.use("/api/develop/phishing", developPhishingRouter);
 
 app.use(rateLimiterUsingThirdParty);
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log('Api is listening on', PORT);
 });
