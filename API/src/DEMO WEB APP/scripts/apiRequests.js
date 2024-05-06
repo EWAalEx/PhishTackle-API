@@ -55,7 +55,7 @@ async function postData(url = "", data = {}) {
 }
 
 function analyseData(data = exampleData) {
-  postData(`${APIURl}/analyse${data.name}`, data)
+  postData(`${APIURl}/analyse`, data)
     .then((data) => {
       document.getElementById("response").innerHTML = JSON.stringify(data);
     });

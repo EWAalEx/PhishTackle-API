@@ -77,31 +77,10 @@ function analyseForm() {
     }
 
     if (phishingTextContainer.value != "" || urls != "") {
-        //creates unique name for inputs to aid with caching        
-
-        const createName =  `${phishingTextContainer.value}${urls.toString()}`;
-
-        //removing https:// and variation from name to construct safe name
-        let safeName = createName.replaceAll(/https:\/\//gi,"");
-
-        if(safeName.toLowerCase().includes("http://")){
-            safeName = safeName.replaceAll(/http:\/\//gi,"");
-        }
         
-        //for some reason semi colon also breaks it
-        if(safeName.includes("https;//")){
-            safeName = safeName.replaceAll(/https;\/\//gi,"");
-        }
-
-        if(safeName.includes("http;//")){
-            safeName = safeName.replaceAll(/http;\/\//gi,"");
-        }
-
         jsonObject = {
-            "name": safeName,
             "urls": urls,
-            "content": [phishingTextContainer.value],
-            "tag": "To Test"
+            "content": [phishingTextContainer.value]
         };
 
         analyseData(jsonObject);
