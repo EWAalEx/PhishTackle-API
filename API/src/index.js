@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.use(rateLimiterUsingThirdParty);
+
 //version management
 app.use("/api/live/phishing", PhishingRouter);
 
@@ -32,8 +34,6 @@ app.get("/", (req,res) => {
     res.sendFile("DEMO WEB APP/pages/WebAppHome.html", {root: __dirname});
 });
 //remove inbetween comments if web app is not used
-
-app.use(rateLimiterUsingThirdParty);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Api is listening on', process.env.PORT);
