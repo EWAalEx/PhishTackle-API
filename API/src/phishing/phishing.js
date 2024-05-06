@@ -13,7 +13,7 @@ async function analyseTextModel(text_model, newData){
   //run models against provided inputs
   if (text_model){
     //when model is loaded run provided data through prediction
-    const input_text = newData.content;
+    let input_text = newData.content;
 
     if(typeof(input_text) == "string"){
       input_text = [newData.content];
@@ -63,7 +63,7 @@ async function analyseUrlModel(url_model, newData){
 
   //run models against provided inputs
   if (url_model){
-    const input_urls = newData.urls;
+    let input_urls = newData.urls;
 
     if(typeof(input_urls) == "string"){
       input_urls = [newData.urls];

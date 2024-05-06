@@ -1,4 +1,4 @@
-const APIURl = "http://localhost:3000/api/live/phishing";
+const APIURl = "https://phishtackle-api-d13b18313781.herokuapp.com/api/live/phishing";
 const exampleID = "61dbae02-c147-4e28-863c-db7bd402b2d6";
 const exampleData = {
   "name": "Test Data 3",
@@ -55,7 +55,7 @@ async function postData(url = "", data = {}) {
 }
 
 function analyseData(data = exampleData) {
-  postData(`${APIURl}/analyse${data.name}`, data)
+  postData(`${APIURl}/analyse`, data)
     .then((data) => {
       document.getElementById("response").innerHTML = JSON.stringify(data);
     });
