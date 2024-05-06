@@ -79,22 +79,22 @@ function analyseForm() {
     if (phishingTextContainer.value != "" || urls != "") {
         //creates unique name for inputs to aid with caching        
 
-        const createName =  `${phishingTextContainer.value.toLowerCase()}${urls.toString().toLowerCase()}`;
+        const createName =  `${phishingTextContainer.value}${urls.toString()}`;
 
         //removing https:// and variation from name to construct safe name
-        let safeName = createName.replace(/https:\/\//g,"");
+        let safeName = createName.replaceAll(/https:\/\//gi,"");
 
-        if(safeName.includes("http://")){
-            safeName = safeName.replace(/http:\/\//g,"");
+        if(safeName.toLowerCase().includes("http://")){
+            safeName = safeName.replaceAll(/http:\/\//gi,"");
         }
         
         //for some reason semi colon also breaks it
         if(safeName.includes("https;//")){
-            safeName = safeName.replace(/https;\/\//g,"");
+            safeName = safeName.replaceAll(/https;\/\//gi,"");
         }
 
         if(safeName.includes("http;//")){
-            safeName = safeName.replace(/http;\/\//g,"");
+            safeName = safeName.replaceAll(/http;\/\//gi,"");
         }
 
         jsonObject = {
