@@ -77,7 +77,7 @@ async function analyseUrlModel(url_model, newData){
     for(let url in input_urls){
       //create new feed for new url
       let url_data = new ort.Tensor("string", [input_urls[url]]);
-      let feeds = {"url_input": url_data};
+      let feeds = {"text_input": url_data};
 
       try {
         //analyse feeds
